@@ -1,0 +1,59 @@
+{
+  "name": "@noy-db/in-tanstack-table",
+  "version": "0.8.0",
+  "description": "TanStack Table bridge for noy-db — map Collection query state (sort, filter, pagination) into Table state and back, so a useSmartTable pattern drives the DB's query DSL without glue code.",
+  "license": "Apache-2.0",
+  "author": "vLannaAi <vicio@lanna.ai>",
+  "homepage": "https://github.com/noy-db/in/tree/main/in-tanstack-table#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noy-db/in.git",
+    "directory": "in-tanstack-table"
+  },
+  "bugs": {
+    "url": "https://github.com/noy-db/in/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
+  },
+  "peerDependencies": {
+    "@noy-db/hub": "^0.8.0",
+    "@tanstack/table-core": "^8.0.0"
+  },
+  "devDependencies": {
+    "@noy-db/hub": "0.8.0"
+  },
+  "keywords": [
+    "noy-db",
+    "in-tanstack-table",
+    "tanstack",
+    "table",
+    "smart-table"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

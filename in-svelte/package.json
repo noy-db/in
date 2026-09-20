@@ -1,0 +1,58 @@
+{
+  "name": "@noy-db/in-svelte",
+  "version": "0.8.0",
+  "description": "Svelte stores for noy-db — collectionStore / queryStore / syncStore backed by noy-db change events. Works with Svelte 4 store contract and Svelte 5 runes (via $store subscription interop).",
+  "license": "Apache-2.0",
+  "author": "vLannaAi <vicio@lanna.ai>",
+  "homepage": "https://github.com/noy-db/in/tree/main/in-svelte#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noy-db/in.git",
+    "directory": "in-svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/noy-db/in/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
+  },
+  "peerDependencies": {
+    "@noy-db/hub": "^0.8.0"
+  },
+  "devDependencies": {
+    "@noy-db/hub": "0.8.0"
+  },
+  "keywords": [
+    "noy-db",
+    "in-svelte",
+    "svelte",
+    "stores",
+    "sveltekit"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

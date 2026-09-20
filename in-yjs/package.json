@@ -1,0 +1,62 @@
+{
+  "name": "@noy-db/in-yjs",
+  "version": "0.8.0",
+  "description": "Yjs Y.Doc interop for noy-db — collaborative rich-text fields with encrypted-at-rest Yjs state",
+  "license": "Apache-2.0",
+  "author": "vLannaAi <vicio@lanna.ai>",
+  "homepage": "https://github.com/noy-db/in/tree/main/in-yjs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noy-db/in.git",
+    "directory": "in-yjs"
+  },
+  "bugs": {
+    "url": "https://github.com/noy-db/in/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
+  },
+  "peerDependencies": {
+    "@noy-db/hub": "^0.8.0",
+    "yjs": ">=13.0.0"
+  },
+  "devDependencies": {
+    "@noy-db/hub": "0.8.0",
+    "yjs": "^13.6.27"
+  },
+  "keywords": [
+    "noy-db",
+    "yjs",
+    "crdt",
+    "collaborative",
+    "rich-text",
+    "encryption",
+    "offline-first"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "@noy-db/in-tanstack-query",
+  "version": "0.8.0",
+  "description": "TanStack Query adapter for noy-db — queryFn + mutationFn helpers that speak the Collection API, plus automatic invalidation from noy-db change events. Framework-agnostic (React / Vue / Solid / Svelte).",
+  "license": "Apache-2.0",
+  "author": "vLannaAi <vicio@lanna.ai>",
+  "homepage": "https://github.com/noy-db/in/tree/main/in-tanstack-query#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noy-db/in.git",
+    "directory": "in-tanstack-query"
+  },
+  "bugs": {
+    "url": "https://github.com/noy-db/in/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
+  },
+  "peerDependencies": {
+    "@noy-db/hub": "^0.8.0",
+    "@tanstack/query-core": "^5.0.0"
+  },
+  "devDependencies": {
+    "@noy-db/hub": "0.8.0",
+    "@tanstack/query-core": "^5.59.0"
+  },
+  "keywords": [
+    "noy-db",
+    "in-tanstack-query",
+    "tanstack",
+    "query",
+    "cache",
+    "data-fetching"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

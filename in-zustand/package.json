@@ -1,0 +1,60 @@
+{
+  "name": "@noy-db/in-zustand",
+  "version": "0.8.0",
+  "description": "Zustand adapter for noy-db — factory that mirrors defineNoydbStore for Zustand users, auto-syncs state from noy-db change events, and supports optimistic mutations.",
+  "license": "Apache-2.0",
+  "author": "vLannaAi <vicio@lanna.ai>",
+  "homepage": "https://github.com/noy-db/in/tree/main/in-zustand#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noy-db/in.git",
+    "directory": "in-zustand"
+  },
+  "bugs": {
+    "url": "https://github.com/noy-db/in/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
+  },
+  "peerDependencies": {
+    "@noy-db/hub": "^0.8.0",
+    "zustand": "^4.0.0 || ^5.0.0"
+  },
+  "devDependencies": {
+    "@noy-db/hub": "0.8.0",
+    "zustand": "^5.0.0"
+  },
+  "keywords": [
+    "noy-db",
+    "in-zustand",
+    "zustand",
+    "state",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}
