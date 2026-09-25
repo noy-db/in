@@ -8,7 +8,8 @@
     "declared-deps",
     "codemod-rows",
     "check-license",
-    "prose-examples"
+    "prose-examples",
+    "changeset-names"
   ],
   "localChecks": [
     "pnpm check:architecture"
