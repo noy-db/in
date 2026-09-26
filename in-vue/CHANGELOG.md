@@ -1,8 +1,10 @@
 # Changelog — in-vue
 
-## Unreleased
+## 0.9.0-pre.0
 
 - Published from `noy-db/in` from this version on; `0.8.0` and earlier were published from `noy-db/core`. No API change.
+- Joins the 0.9 line: the `@noy-db/hub` peer range appends `^0.9.0-pre.1` and the exact dev pin moves to `0.9.0-pre.2`. No source change — 27 test files / 287 tests, `typecheck` and `check:architecture` are all green at the new pin.
+- Also repinned to core's `0.9.0-pre.2`: `@noy-db/to-browser-idb`.
 
 ## 0.8.0
 
