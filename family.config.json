@@ -4,6 +4,7 @@
   "binds": null,
   "publishes": true,
   "gates": [
+    "architecture",
     "versions-uniform",
     "declared-deps",
     "codemod-rows",
@@ -13,5 +14,9 @@
   ],
   "localChecks": [
     "pnpm check:architecture"
-  ]
+  ],
+  "packageSeams": {
+    "@noy-db/in-devtools": "dependency",
+    "@noy-db/in-rest": "optional-peer"
+  }
 }
