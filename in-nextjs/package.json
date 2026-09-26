@@ -1,6 +1,6 @@
 {
   "name": "@noy-db/in-nextjs",
-  "version": "0.8.0",
+  "version": "0.9.0-pre.0",
   "description": "Next.js App Router helpers for noy-db — server components, route handlers, client hooks, and cookie-based session. Thin bridge that composes @noy-db/in-react with Next's cookies()/headers() APIs.",
   "license": "Apache-2.0",
   "author": "vLannaAi <vicio@lanna.ai>",
@@ -43,7 +43,7 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
   },
   "peerDependencies": {
-    "@noy-db/hub": "^0.8.0",
+    "@noy-db/hub": "^0.8.0 || ^0.9.0-pre.1",
     "@noy-db/in-react": "workspace:^",
     "next": "^14.0.0 || ^15.0.0",
     "react": "^18.0.0 || ^19.0.0"
@@ -60,7 +60,7 @@
     }
   },
   "devDependencies": {
-    "@noy-db/hub": "0.8.0",
+    "@noy-db/hub": "0.9.0-pre.2",
     "@noy-db/in-react": "workspace:*"
   },
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "@noy-db/in-vue",
-  "version": "0.8.0",
+  "version": "0.9.0-pre.0",
   "description": "Vue 3 / Nuxt composables for noy-db — reactive useNoydb, useCollection, useSync, and biometric plugin",
   "license": "Apache-2.0",
   "author": "vLannaAi <vicio@lanna.ai>",
@@ -39,12 +39,12 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json"
   },
   "peerDependencies": {
-    "@noy-db/hub": "^0.8.0",
+    "@noy-db/hub": "^0.8.0 || ^0.9.0-pre.1",
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@noy-db/hub": "0.8.0",
-    "@noy-db/to-browser-idb": "0.8.0",
+    "@noy-db/hub": "0.9.0-pre.2",
+    "@noy-db/to-browser-idb": "0.9.0-pre.2",
     "vue": "^3.5.32"
   },
   "keywords": [
