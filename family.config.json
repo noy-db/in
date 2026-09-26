@@ -13,7 +13,8 @@
     "changeset-names"
   ],
   "localChecks": [
-    "pnpm check:architecture"
+    "pnpm check:architecture",
+    "pnpm knip"
   ],
   "packageSeams": {
     "@noy-db/in-devtools": "dependency",

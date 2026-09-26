@@ -1,0 +1,33 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+
+  // ⛔ EVERY IGNORE CARRIES A DISCRIMINATOR — a way to tell a knip BLIND SPOT from
+  // a defect here. A bare ignore is how a real finding gets silenced later.
+
+  // README dependencies. `in-nuxt`, `in-pinia`, `in-pwa` and `in-vue` each import a
+  // store in their README, and the rail's `prose-examples` gate COMPILES every
+  // shipped README — so these are real, required devDependencies. knip does not read
+  // markdown, so it calls all four unused.
+  //   discriminator: `git grep -l to-browser-idb -- in-vue` hits README.md and
+  //   package.json, and nothing under src/.
+  //
+  // `happy-dom` is a vitest ENVIRONMENT, selected per-file in
+  // `in-nuxt/vitest.config.ts` rather than imported — the same shape `declared-deps`
+  // exists to catch, and the same shape an import scan cannot see.
+  // `next` / `react` are correctly OPTIONAL peers of `in-nextjs`, and knip's
+  // "referenced optional peerDependency" row is a FALSE POSITIVE: the only mention of
+  // either in `in-nextjs/src` is line 42 of `index.ts`, inside a JSDoc block —
+  //     * import { NextResponse } from 'next/server'
+  // ⭐ knip reads import syntax out of COMMENTS. That is the same defect class as
+  // family#64 in the rail's `declared-deps` gate, which reported a dependency named
+  // `peer` from prose explaining import syntax. Third instrument this session with
+  // the same blind spot; the corpus is the bug, never the pattern.
+  //   discriminator: `git grep -nE "from .(next|react)" -- in-nextjs/src` returns one
+  //   hit and it begins with ` * `.
+  "ignoreDependencies": [
+    "@noy-db/to-browser-idb",
+    "@noy-db/to-file",
+    "happy-dom",
+    "next"
+  ]
+}
