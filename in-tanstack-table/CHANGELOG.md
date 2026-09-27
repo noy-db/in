@@ -1,5 +1,9 @@
 # @noy-db/in-tanstack-table
 
+## 0.9.0
+
+Lockstep bump to 0.9.0; no package-level change in this release. See `@noy-db/hub` 0.9.0 for the line's notes.
+
 ## 0.9.0-pre.0
 
 - Published from `noy-db/in` from this version on; `0.8.0` and earlier were published from `noy-db/core`. No API change.

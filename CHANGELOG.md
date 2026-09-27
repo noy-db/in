@@ -2,6 +2,21 @@
 
 Per-package changelogs live in each `in-*/CHANGELOG.md`. This file records repo-level events only.
 
+## 0.9.0
+
+**Fourteen framework bindings join the 0.9 stable line** — the first stable release cut from this
+repository rather than from core. No source change.
+
+- Exact dev pins on core's line move to `0.9.0`: `@noy-db/hub`, and `in-rest`, `in-devtools`,
+  `to-browser-idb`, `to-file`, `to-meter`.
+- ⛔ **`peerDependencies` untouched.** The `@noy-db/hub` range already carries `^0.9.0-pre.1`, which for
+  a 0.x caret is `>=0.9.0-pre.1 <0.10.0` — it admits `0.9.0` stable already.
+- ⭐ **These packages changed PRODUCER, not behaviour.** They were extracted from `noy-db/core` on
+  2026-09-21; `0.8.0` of each was published by core, and this repo's first cut was `0.8.1`. A consumer
+  pinning both core and `in-*` now tracks **two** producers where it tracked one.
+- ⚠️ **`in-rest`, `in-relay`, `in-devtools` and `in-devtools-tui` did NOT move** — they stayed in core
+  and publish on core's line. The prefix is the layer, never the producer.
+
 ## 0.9.0-pre.0
 
 - Repository created 2026-09-21 by extracting fourteen `in-*` packages from `noy-db/core` at

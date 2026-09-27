@@ -1,6 +1,6 @@
 {
   "name": "@noy-db/in-react",
-  "version": "0.9.0-pre.0",
+  "version": "0.9.0",
   "description": "React hooks for noy-db — useNoydb, useVault, useCollection, useQuery, useSync. Uses useSyncExternalStore for reactive subscriptions. Zero deps beyond React.",
   "license": "Apache-2.0",
   "author": "vLannaAi <vicio@lanna.ai>",
@@ -43,7 +43,7 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@noy-db/hub": "0.9.0-pre.2",
+    "@noy-db/hub": "0.9.0",
     "@testing-library/react": "^16.0.0",
     "@types/react": "^18.0.0",
     "happy-dom": "^18.0.0",

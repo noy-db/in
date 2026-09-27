@@ -1,6 +1,6 @@
 {
   "name": "@noy-db/in-solid",
-  "version": "0.9.0-pre.0",
+  "version": "0.9.0",
   "description": "SolidJS signal primitives for noy-db — createCollectionSignal, createQuerySignal, createSyncSignal backed by noy-db change events.",
   "license": "Apache-2.0",
   "author": "vLannaAi <vicio@lanna.ai>",
@@ -43,7 +43,7 @@
     "solid-js": "^1.8.0"
   },
   "devDependencies": {
-    "@noy-db/hub": "0.9.0-pre.2",
+    "@noy-db/hub": "0.9.0",
     "solid-js": "^1.9.0"
   },
   "keywords": [
