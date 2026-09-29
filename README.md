@@ -1,7 +1,7 @@
 # `@noy-db/in-*` — framework bindings for noy-db
 
-The **`in-` family**: *runs **in** a framework*. Each package binds the published `@noy-db/hub`
-surface to one framework or platform, so an application uses the vault through the idioms it
+The **`in-` family**: *runs **in** your app*. Each package binds the published `@noy-db/hub`
+surface to a framework, a server, or a developer tool, so an application uses the vault through the idioms it
 already knows. Nothing here sees plaintext that the application did not already hold, and nothing
 here performs storage I/O: a binding composes hub, and hub encrypts before any store is reached.
 
@@ -16,9 +16,11 @@ this family, and so that a developer forking one binding does not carry the core
 | `@noy-db/in-zustand` · `in-tanstack-query` · `in-tanstack-table` | state and query libraries |
 | `@noy-db/in-yjs` | Yjs CRDT collections |
 | `@noy-db/in-pwa` · `in-liff` · `in-ai` | service-worker hosting · LINE Front-end Framework · AI tool surfaces |
+| `@noy-db/in-rest` · `in-relay` | a REST handler (Hono, Express, Fastify, Nitro) · the relay server half |
+| `@noy-db/in-devtools` · `in-devtools-tui` | a read-only inspector for a live db · its terminal UI (`noydb-inspect`) |
 
-Four `in-*` packages stay in the core repo because they carry no framework: `in-rest` and
-`in-relay` (the server half of the store contract), `in-devtools` and `in-devtools-tui`.
+`in-rest`, `in-relay`, `in-devtools` and `in-devtools-tui` moved here from the core repo on
+2026-09-29.
 
 ## Binding
 
@@ -29,7 +31,7 @@ for development. Install hub and a store yourself:
 pnpm add @noy-db/hub @noy-db/to-browser-idb @noy-db/in-vue
 ```
 
-The family binds hub at its root barrel plus `/to`, `/share-link` and `/i18n`. Widening that set is
+The family binds hub at its root barrel plus `/to`, `/share-link`, `/i18n` and `/introspection`. Widening that set is
 a seam change coordinated with the core, not a local edit; `pnpm check:architecture` fails on it.
 
 ## Development
@@ -40,7 +42,7 @@ pnpm check:architecture
 ```
 
 Gates run in CI from `noy-db/.github` (`family.config.json` lists them). This repo has its own
-version line, independent of hub's: `pnpm version:set <version>` moves all fourteen packages at once.
+version line, independent of hub's: `pnpm version:set <version>` moves all eighteen packages at once.
 
 ## License
 

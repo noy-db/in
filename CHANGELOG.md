@@ -2,6 +2,16 @@
 
 Per-package changelogs live in each `in-*/CHANGELOG.md`. This file records repo-level events only.
 
+## Unreleased
+
+**Four packages join from core:** `in-rest`, `in-relay`, `in-devtools`, `in-devtools-tui` (moved
+2026-09-29). They change producer, not behaviour. `0.9.0` and earlier were published by core.
+- `in-nuxt`'s edges to `in-devtools` (dependency) and `in-rest` (optional peer) are now siblings, so
+  they use `workspace:`. The published peer range on `in-rest` follows this repo's line from the next
+  cut.
+- `check-architecture`: hub `/introspection` joins the allowed subpaths (type-only use by
+  `in-devtools`); `bin.*` files are exempt from `no-store-runtime-import` (`noydb-inspect --meter`).
+
 ## 0.9.0
 
 **Fourteen framework bindings join the 0.9 stable line** — the first stable release cut from this
