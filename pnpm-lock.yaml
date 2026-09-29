@@ -39,23 +39,23 @@ importers:
   in-ai:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
 
   in-devtools:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/to-meter':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
 
   in-devtools-tui:
     dependencies:
       '@noy-db/to-meter':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       ink:
         specifier: ^5.0.1
         version: 5.2.1(@types/react@18.3.31)(react@18.3.1)
@@ -64,8 +64,8 @@ importers:
         version: 18.3.1
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/in-devtools':
         specifier: workspace:*
         version: link:../in-devtools
@@ -82,8 +82,8 @@ importers:
   in-liff:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
 
   in-nextjs:
     dependencies:
@@ -95,8 +95,8 @@ importers:
         version: 18.3.1
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/in-react':
         specifier: workspace:*
         version: link:../in-react
@@ -108,8 +108,8 @@ importers:
         version: link:../in-devtools
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/in-pinia':
         specifier: workspace:*
         version: link:../in-pinia
@@ -120,11 +120,11 @@ importers:
         specifier: workspace:*
         version: link:../in-vue
       '@noy-db/to-browser-idb':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       '@noy-db/to-meter':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       '@nuxt/kit':
         specifier: ^4.4.2
         version: 4.5.2(magic-string@1.4.1)(magicast@0.5.5)(oxc-parser@0.150.0)(rolldown@1.2.9)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.9)(rollup@4.63.4)(vite@8.3.0(@types/node@22.20.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
@@ -153,14 +153,14 @@ importers:
   in-pinia:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/in-vue':
         specifier: workspace:*
         version: link:../in-vue
       '@noy-db/to-file':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       happy-dom:
         specifier: ^18.0.0
         version: 18.0.1
@@ -177,17 +177,17 @@ importers:
   in-pwa:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/to-browser-idb':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
 
   in-react:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@testing-library/react':
         specifier: ^16.0.0
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -207,14 +207,14 @@ importers:
   in-relay:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
 
   in-rest:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.6
@@ -237,8 +237,8 @@ importers:
   in-solid:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       solid-js:
         specifier: ^1.9.0
         version: 1.9.15
@@ -246,14 +246,14 @@ importers:
   in-svelte:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
 
   in-tanstack-query:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@tanstack/query-core':
         specifier: ^5.59.0
         version: 5.103.1
@@ -265,17 +265,17 @@ importers:
         version: 8.21.3
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
 
   in-vue:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/to-browser-idb':
-        specifier: 0.9.0
-        version: 0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       vue:
         specifier: ^3.5.32
         version: 3.5.43(typescript@5.9.3)
@@ -283,8 +283,8 @@ importers:
   in-yjs:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       yjs:
         specifier: ^13.6.27
         version: 13.6.32
@@ -292,8 +292,8 @@ importers:
   in-zustand:
     devDependencies:
       '@noy-db/hub':
-        specifier: 0.9.0
-        version: 0.9.0(zod@4.6.5)
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
       zustand:
         specifier: ^5.0.0
         version: 5.0.15(@types/react@18.3.31)(react@18.3.1)
@@ -1124,8 +1124,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@noy-db/hub@0.9.0':
-    resolution: {integrity: sha512-KEmlOw6YmMDB6fi7gFJKGaMYuifNIWN16SlUDUrmIDf22xLczh3L0bOZlbhW+FhmmjlOJiZF/FjYxNJS+Ee11w==}
+  '@noy-db/hub@0.10.0-pre.0':
+    resolution: {integrity: sha512-cQOrfzd6iuuo+iryw92sGz5+3Xn2b7ri1FGTApMgi5W8S+233kpp+jYhli4jFSHBSZdTtXnrflNxsQ6ed54dKw==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       zod: ^3.0.0 || ^4.0.0
@@ -1136,23 +1136,23 @@ packages:
       zod-to-json-schema:
         optional: true
 
-  '@noy-db/to-browser-idb@0.9.0':
-    resolution: {integrity: sha512-LAttC+vtrgJ4qYMQSfXJluUafJ168L11hzSWpNFJshfnSmQw88bG6cLfD2drLI7BqZA30ivnlQy0cBFW7rp9cA==}
+  '@noy-db/to-browser-idb@0.10.0-pre.0':
+    resolution: {integrity: sha512-XKFJXhG8M1eSpqvxMj1T21RNyYHcEGSVSuTAf5gyjy4ZQpGSDvVW1qJuDDlsXRKkrek8F6vfd/geQJzrbFjJ5A==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      '@noy-db/hub': ^0.9.0
+      '@noy-db/hub': ^0.10.0-pre.0
 
-  '@noy-db/to-file@0.9.0':
-    resolution: {integrity: sha512-MMWvB1MAz6QgR9k+rgl21Ll3FVA71OaVmPQFkWryv+FHTC7CCUDP3jU1Qwau+GR7TXjDgMC0OG+Al3gCtcRrew==}
+  '@noy-db/to-file@0.10.0-pre.0':
+    resolution: {integrity: sha512-CXjdJPdcL+a4WKAUUr3HtlcWc4FTct76FlNQpM7joO2yVU3oypfoHUtL7yDCD6xrCsDBcYKmHfq6Apcq2zpf8w==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      '@noy-db/hub': ^0.9.0
+      '@noy-db/hub': ^0.10.0-pre.0
 
-  '@noy-db/to-meter@0.9.0':
-    resolution: {integrity: sha512-4H91ySpzDVcZc0TUUKtE4IpzStd0pX9aNl+FjJji+dW88Ub32heiSbBbRsC20SbXLpqUQ0axNQho4300TBuJnQ==}
+  '@noy-db/to-meter@0.10.0-pre.0':
+    resolution: {integrity: sha512-N55RlRdkyYtI/Fziy4aP11US1HXBSOk4jDAZvuRRvfbahT1BvRQygjHpqZJ38Kv5i2aThhSSkACIG3/Jg7wZdw==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      '@noy-db/hub': ^0.9.0
+      '@noy-db/hub': ^0.10.0-pre.0
 
   '@nuxt/cli@3.37.0':
     resolution: {integrity: sha512-Zj9NwHjEBzVrgezsgMFjpMhNqwNgROk9DzNi/dyfk1mCbXIRigV11br2xOl0Satek30bmv7oZAfMtCnDe6Ip0Q==}
@@ -6123,21 +6123,21 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.3
 
-  '@noy-db/hub@0.9.0(zod@4.6.5)':
+  '@noy-db/hub@0.10.0-pre.0(zod@4.6.5)':
     optionalDependencies:
       zod: 4.6.5
 
-  '@noy-db/to-browser-idb@0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))':
+  '@noy-db/to-browser-idb@0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))':
     dependencies:
-      '@noy-db/hub': 0.9.0(zod@4.6.5)
+      '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
 
-  '@noy-db/to-file@0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))':
+  '@noy-db/to-file@0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))':
     dependencies:
-      '@noy-db/hub': 0.9.0(zod@4.6.5)
+      '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
 
-  '@noy-db/to-meter@0.9.0(@noy-db/hub@0.9.0(zod@4.6.5))':
+  '@noy-db/to-meter@0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))':
     dependencies:
-      '@noy-db/hub': 0.9.0(zod@4.6.5)
+      '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
 
   '@nuxt/cli@3.37.0(@nuxt/schema@4.5.2)(cac@6.7.14)(commander@14.0.3)(magicast@0.5.5)':
     dependencies:

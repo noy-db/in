@@ -1,6 +1,8 @@
 # @noy-db/in-devtools-tui
 
-## Unreleased
+## 0.10.0-pre.0
+
+First release from `noy-db/in`; 0.10.0-pre.0 is on this repo's line. See `@noy-db/hub` 0.10.0-pre.0 for the line's notes.
 
 - Moved from `noy-db/core` to `noy-db/in`. One redundant type assertion removed (`RecordsPane.tsx`) — needed against hub's workspace source, not its published `.d.ts`.
 

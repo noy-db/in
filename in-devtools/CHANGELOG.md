@@ -1,6 +1,8 @@
 # @noy-db/in-devtools
 
-## Unreleased
+## 0.10.0-pre.0
+
+First release from `noy-db/in`; 0.10.0-pre.0 is on this repo's line. See `@noy-db/hub` 0.10.0-pre.0 for the line's notes.
 
 - Moved from `noy-db/core` to `noy-db/in`. No source change.
 

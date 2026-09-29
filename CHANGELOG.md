@@ -2,7 +2,9 @@
 
 Per-package changelogs live in each `in-*/CHANGELOG.md`. This file records repo-level events only.
 
-## Unreleased
+## 0.10.0-pre.0
+
+Eighteen packages on the 0.10 pre line, in the whole-family cut: exact pins on core's line move to `0.10.0-pre.0`, and `|| ^0.10.0-pre.0` is appended to every `@noy-db/hub` peer range.
 
 **Four packages join from core:** `in-rest`, `in-relay`, `in-devtools`, `in-devtools-tui` (moved
 2026-09-29). They change producer, not behaviour. `0.9.0` and earlier were published by core.
