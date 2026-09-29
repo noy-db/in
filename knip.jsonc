@@ -24,9 +24,16 @@
   // the same blind spot; the corpus is the bug, never the pattern.
   //   discriminator: `git grep -nE "from .(next|react)" -- in-nextjs/src` returns one
   //   hit and it begins with ` * `.
+  //
+  // `h3` (in-rest, moved from core 2026-09-29) is an OPTIONAL PEER the Nitro adapter
+  // targets WITHOUT importing — it returns a Fetch `Response` and never touches h3's
+  // API. Named in tsup's `external` and in peerDependencies; the devDep is what makes
+  // the adapter's tests typecheck. Core's knip config carried the same ignore.
+  //   discriminator: `git grep -n "from 'h3'" -- in-rest` returns nothing.
   "ignoreDependencies": [
     "@noy-db/to-browser-idb",
     "@noy-db/to-file",
+    "h3",
     "happy-dom",
     "next"
   ]

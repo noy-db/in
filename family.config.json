@@ -16,8 +16,5 @@
     "pnpm check:architecture",
     "pnpm knip"
   ],
-  "packageSeams": {
-    "@noy-db/in-devtools": "dependency",
-    "@noy-db/in-rest": "optional-peer"
-  }
+  "packageSeams": {}
 }
