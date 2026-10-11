@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@noy-db/hub": "0.10.0-pre.0",
-    "@noy-db/to-meter": "0.10.0-pre.0"
+    "@noy-db/to-meter": "workspace:*"
   },
   "engines": {
     "node": ">=22.0.0"

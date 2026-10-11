@@ -60,7 +60,7 @@
     "@noy-db/in-rest": "workspace:*",
     "@noy-db/in-vue": "workspace:*",
     "@noy-db/to-browser-idb": "0.10.0-pre.0",
-    "@noy-db/to-meter": "0.10.0-pre.0",
+    "@noy-db/to-meter": "workspace:*",
     "@nuxt/kit": "^4.4.2",
     "@nuxt/schema": "^4.4.2",
     "@vitejs/plugin-vue": "^5.2.4",

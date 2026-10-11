@@ -41,7 +41,12 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const ALLOWED_HUB = new Set(['', '/to', '/share-link', '/i18n', '/introspection'])
-const pkgDirs = readdirSync(ROOT).filter((d) => d.startsWith('in-') && existsSync(join(ROOT, d, 'package.json')))
+// `to-meter` joined this repo on 2026-10-11 (family#117). It is a store WRAPPER, not a
+// binding — so rule 3 (no store I/O in a BINDING) exempts the to-* package ITSELF, never a
+// binding that imports it: an `in-*` value-importing to-meter still fails. It it value-imports hub's root (`wrapStore`, `withMetrics`, `memoryStore`), which
+// `noy-db/to`'s seam forbids and this repo's allows, and both of its consumers live here.
+const MEMBER_PREFIXES = ['in-', 'to-meter']
+const pkgDirs = readdirSync(ROOT).filter((d) => MEMBER_PREFIXES.some((p) => d.startsWith(p)) && existsSync(join(ROOT, d, 'package.json')))
 const own = new Set(pkgDirs.map((d) => JSON.parse(readFileSync(join(ROOT, d, 'package.json'), 'utf8')).name))
 const failures = []
 const fail = (rule, msg) => failures.push(`${rule}: ${msg}`)
@@ -95,7 +100,7 @@ for (const dir of pkgDirs) {
       if (spec === '@noy-db/hub' || spec.startsWith('@noy-db/hub/')) {
         const sub = spec.slice('@noy-db/hub'.length)
         if (!ALLOWED_HUB.has(sub)) fail('hub-subpaths', `${rel} imports '${spec}'; this family binds hub at ${[...ALLOWED_HUB].map((s) => `'@noy-db/hub${s}'`).join(', ')} only — a new subpath is a seam change`)
-      } else if (/^@noy-db\/to-/.test(spec) && !typeOnly && !/^bin\./.test(basename(file))) {
+      } else if (/^@noy-db\/to-/.test(spec) && !typeOnly && !/^bin\./.test(basename(file)) && !dir.startsWith('to-')) {
         fail('no-store-runtime-import', `${rel} value-imports '${spec}'; a binding never performs storage I/O — use \`import type\``)
       } else if (/^@noy-db\/(as|on|at|by)-/.test(spec)) {
         fail('no-sibling-family-import', `${rel} imports '${spec}'; a binding composes hub, never another satellite family`)

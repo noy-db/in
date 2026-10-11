@@ -48,14 +48,14 @@ importers:
         specifier: 0.10.0-pre.0
         version: 0.10.0-pre.0(zod@4.6.5)
       '@noy-db/to-meter':
-        specifier: 0.10.0-pre.0
-        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
+        specifier: workspace:*
+        version: link:../to-meter
 
   in-devtools-tui:
     dependencies:
       '@noy-db/to-meter':
-        specifier: 0.10.0-pre.0
-        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
+        specifier: workspace:*
+        version: link:../to-meter
       ink:
         specifier: ^5.0.1
         version: 5.2.1(@types/react@18.3.31)(react@18.3.1)
@@ -123,8 +123,8 @@ importers:
         specifier: 0.10.0-pre.0
         version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
       '@noy-db/to-meter':
-        specifier: 0.10.0-pre.0
-        version: 0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))
+        specifier: workspace:*
+        version: link:../to-meter
       '@nuxt/kit':
         specifier: ^4.4.2
         version: 4.5.2(magic-string@1.4.1)(magicast@0.5.5)(oxc-parser@0.150.0)(rolldown@1.2.9)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.9)(rollup@4.63.4)(vite@8.3.0(@types/node@22.20.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
@@ -297,6 +297,18 @@ importers:
       zustand:
         specifier: ^5.0.0
         version: 5.0.15(@types/react@18.3.31)(react@18.3.1)
+
+  to-meter:
+    devDependencies:
+      '@noy-db/hub':
+        specifier: 0.10.0-pre.0
+        version: 0.10.0-pre.0(zod@4.6.5)
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.4
+      happy-dom:
+        specifier: ^18.0.0
+        version: 18.0.1
 
 packages:
 
@@ -1144,12 +1156,6 @@ packages:
 
   '@noy-db/to-file@0.10.0-pre.0':
     resolution: {integrity: sha512-CXjdJPdcL+a4WKAUUr3HtlcWc4FTct76FlNQpM7joO2yVU3oypfoHUtL7yDCD6xrCsDBcYKmHfq6Apcq2zpf8w==}
-    engines: {node: '>=22.0.0'}
-    peerDependencies:
-      '@noy-db/hub': ^0.10.0-pre.0
-
-  '@noy-db/to-meter@0.10.0-pre.0':
-    resolution: {integrity: sha512-N55RlRdkyYtI/Fziy4aP11US1HXBSOk4jDAZvuRRvfbahT1BvRQygjHpqZJ38Kv5i2aThhSSkACIG3/Jg7wZdw==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@noy-db/hub': ^0.10.0-pre.0
@@ -6132,10 +6138,6 @@ snapshots:
       '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
 
   '@noy-db/to-file@0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))':
-    dependencies:
-      '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
-
-  '@noy-db/to-meter@0.10.0-pre.0(@noy-db/hub@0.10.0-pre.0(zod@4.6.5))':
     dependencies:
       '@noy-db/hub': 0.10.0-pre.0(zod@4.6.5)
 

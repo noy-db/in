@@ -16,7 +16,5 @@
     "pnpm check:architecture",
     "pnpm knip"
   ],
-  "packageSeams": {
-    "@noy-db/to-meter": "dependency"
-  }
+  "packageSeams": {}
 }
