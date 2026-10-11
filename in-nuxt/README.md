@@ -137,16 +137,25 @@ A planned CI bundle assertion will verify this property automatically by greppin
 | `pinia`      | `boolean`                                           | `true`        | Auto-import the `@noy-db/in-pinia` helpers. Set to `false` if you don't use Pinia. |
 | `sync`       | `{ adapter, table, region, bucket, mode }`          | —             | Optional sync configuration metadata, exposed via `runtimeConfig.public.noydb.sync`. |
 | `auth`       | `{ mode, sessionTimeout }`                          | —             | Optional auth metadata. The actual secret callback lives in your bootstrap code. |
-| `devtools`   | `boolean`                                           | `true`        | Enable the (planned) devtools tab. Currently a passthrough — the tab itself is a future enhancement. |
+| `devtools`   | `boolean`                                           | `true`        | Register the noy-db tab in Nuxt DevTools during `nuxi dev` (see below). Set to `false` to opt out. Never active in production builds. |
+| `rest`       | `{ enabled, basePath, authToken }`                  | —             | Opt-in Nitro handler at `basePath/**` (default `/api/noydb`) backed by `@noy-db/in-rest`: a ciphertext RPC proxy that never sees plaintext. Fail-closed — without `authToken` every request gets 401; the token stays in private runtime config. It reads the store from `event.context.noydbStore`, which your own Nitro plugin must set. |
 
 Every field is fully typed. Open `nuxt.config.ts` in your IDE and you'll get autocomplete on `noydb:`.
+
+## DevTools tab
+
+In dev mode (`nuxi dev`) the module adds a **noy-db** tab to the Nuxt DevTools overlay. It is a dev-only page at `/_noydb-devtools`, rendered inside your app so it reads the instance you bound with `setActiveNoydb(db)`, and shown in the overlay as an iframe. It shows the open vault and has two views:
+
+- **Structure** — the vault's collections, each with a **Schema** view and a paged **Records** view (records are decrypted in your browser, as everything else in your app is).
+- **Monitor** — a live feed of writes (conflicts flagged) and, when your store is wrapped with `@noy-db/to-meter`, its meter snapshot.
+
+Until a db is bound and a vault is unlocked, the tab says so instead. Disable it with `noydb: { devtools: false }`; production builds never register it.
 
 ## What's NOT yet included
 
 The following features are tracked as future follow-ups:
 
-- **Devtools tab via `@nuxt/devtools-kit`** — compartment tree, sync status, ledger tail, query playground
-- **Optional Nitro server proxy** at `/api/_noydb/[...]` for behind-the-scenes auth gating
+- **Store wiring for the REST handler** — `rest.enabled` mounts the handler (see the `rest` option), but you populate `event.context.noydbStore` from your own Nitro plugin
 - **Optional Nitro scheduled backup task** for encrypted off-site backups
 - **`nuxi noydb <cmd>` CLI extension**
 - **Eager Noydb instantiation** — once a real consumer signs off on the bootstrap UX

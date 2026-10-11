@@ -20,8 +20,7 @@
  *      this is the load-bearing SSR-safety property.
  *
  * Deferred to follow-up issues:
- *   - Devtools tab via @nuxt/devtools-kit
- *   - Optional Nitro server proxy (`/api/_noydb/...`)
+ *   - Store wiring for the opt-in REST handler (`rest` option)
  *   - Optional Nitro scheduled backup task
  *   - `nuxi noydb` CLI extension
  *   - Eager Noydb instantiation (requires the user's secret callback,
@@ -84,8 +83,9 @@ export interface ModuleOptions {
   }
 
   /**
-   * Whether to enable the (planned) devtools tab in `nuxi dev`. Currently
-   * a passthrough — the devtools tab itself ships in a follow-up.
+   * Whether to register the noy-db tab in Nuxt DevTools during `nuxi dev`
+   * (a dev-only page at `/_noydb-devtools`, embedded as an iframe tab).
+   * Set to `false` to opt out. Never registered in production builds.
    */
   devtools?: boolean
 
