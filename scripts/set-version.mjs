@@ -9,9 +9,10 @@
 // correct edit that misses one" this repo has no other defence against.
 //
 // It does NOT touch the @noy-db/hub peer range or the exact pins on hub,
-// in-rest, in-devtools or to-meter. Those track CORE's version line, which is
+// to-browser-idb or to-file. Those track CORE's version line, which is
 // independent of ours. Folding them in would silently couple two release lines
-// that were deliberately separated.
+// that were deliberately separated. (in-rest, in-devtools and to-meter used to
+// be on that list; they live HERE since 2026-09-29 / 2026-10-11 and move with us.)
 //
 // Internal edges (in-nextjs -> in-react, in-pinia -> in-vue, in-nuxt -> in-vue
 // and in-pinia) use the `workspace:` protocol and are LEFT ALONE: pnpm rewrites
