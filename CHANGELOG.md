@@ -2,6 +2,10 @@
 
 Per-package changelogs live in each `in-*/CHANGELOG.md`. This file records repo-level events only.
 
+## 0.10.0-pre.1
+
+Nineteen packages on the 0.10 pre line, cut with core's `0.10.0-pre.1` (the first-entry pre-release): `@noy-db/to-meter` ships from this repo for the first time (family#117); exact pins on core's line move to `0.10.0-pre.1`. The `@noy-db/hub` peer ranges already admit it (`^0.10.0-pre.0`), so nothing is appended.
+
 ## 0.10.0-pre.0
 
 Eighteen packages on the 0.10 pre line, in the whole-family cut: exact pins on core's line move to `0.10.0-pre.0`, and `|| ^0.10.0-pre.0` is appended to every `@noy-db/hub` peer range.
