@@ -20,7 +20,7 @@
  *      this is the load-bearing SSR-safety property.
  *
  * Deferred to follow-up issues:
- *   - Optional Nitro server proxy (`/api/_noydb/...`)
+ *   - Store wiring for the opt-in REST handler (`rest` option)
  *   - Optional Nitro scheduled backup task
  *   - `nuxi noydb` CLI extension
  *   - Eager Noydb instantiation (requires the user's secret callback,
