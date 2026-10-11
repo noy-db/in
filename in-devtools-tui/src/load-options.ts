@@ -3,9 +3,12 @@ import { pathToFileURL } from 'node:url'
 
 /**
  * Load a NoydbOptions object from a `.js`/`.mjs` config (default export, or a
- * factory function). Mirrors @noy-db/cli's loader; reimplemented here to avoid
- * coupling the TUI bin to the whole cli package. `.ts` is unsupported (Node has
- * no native loader) — compile first or use a `.mjs` config.
+ * factory function). Mirrors `loadOptionsFromFile` in `create-noy-db` (where the
+ * old @noy-db/cli loader now lives), kept as a copy on purpose: importing it would
+ * add a new package seam on core's line and pull the wizard's dependencies
+ * (@clack/prompts, magicast, to-file) into this bin for ten lines, and its error
+ * text names `noy-db config validate`, not `noydb-inspect`. `.ts` is unsupported
+ * (Node has no native loader) — compile first or use a `.mjs` config.
  */
 export async function loadOptionsFromFile(filePath: string): Promise<unknown> {
   const abs = resolvePath(filePath)
