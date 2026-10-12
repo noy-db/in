@@ -3,7 +3,7 @@
  *   - fields with sensitivity pii/secret render as •••• by default
  *   - the reveal-all key ('r') un-masks all sensitive cells
  *   - public and unclassified fields are always shown
- *   - a collection without described masks nothing (back-compat)
+ *   - a collection with no known classification masks every cell (fail-closed)
  */
 import { describe, it, expect } from 'vitest'
 import { render } from 'ink-testing-library'
@@ -125,10 +125,11 @@ describe('RecordsPane PII masking', () => {
     expect(frame).not.toContain('••••')
   })
 
-  it('back-compat: no described → no masking', async () => {
+  it('fail-closed: no known classification → every cell masked until revealed', async () => {
     const db = await createNoydb({ store: memoryStore(), user: 'owner', secret: 'pw' })
     const vault = await db.openVault('legacy')
-    // No fieldMeta → no described in snapshot
+    // No fieldMeta → described is [] in the snapshot (same as a collection
+    // declared with fieldMeta on ANOTHER Vault instance — sensitivity unknown)
     const notes = vault.collection<{ id: string; secret: string }>('notes')
     await notes.put('n1', { id: 'n1', secret: 'top-secret-data' })
     const inspector = createInspector(db)
@@ -138,9 +139,13 @@ describe('RecordsPane PII masking', () => {
     await drillToRecords(stdin)
 
     const frame = lastFrame() ?? ''
-    // No masking when no described
-    expect(frame).toContain('top-secret-data')
-    expect(frame).not.toContain('••••')
+    expect(frame).not.toContain('top-secret-data')
+    expect(frame).toContain('••••')
+    expect(frame).toContain('r reveal/hide')
+
+    stdin.write('r')
+    await new Promise((r) => setTimeout(r, 80))
+    expect(lastFrame() ?? '').toContain('top-secret-data')
   })
 
   it('reveal-all resets when switching to a different collection', async () => {

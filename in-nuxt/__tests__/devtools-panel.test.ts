@@ -126,6 +126,9 @@ describe('DevtoolsPanel — Structure tab', () => {
     expect(recordsTab).toBeDefined()
     await recordsTab!.trigger('click')
     await flushPromises()
+    // Fixture declares no field classification → masked (fail-closed); reveal to read.
+    await wrapper.find('[data-reveal-all]').trigger('click')
+    await flushPromises()
     expect(wrapper.text()).toContain('inv001')
     expect(wrapper.text()).toContain('1–2')    // rows 1–2 of 5 (en-dash U+2013)
     expect(wrapper.text()).toContain('5')

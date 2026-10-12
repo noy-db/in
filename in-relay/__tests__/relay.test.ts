@@ -76,6 +76,14 @@ describe('relay vocabulary', () => {
     const r = await handle({ id: '1', method: 'get', args: ['v', 'c', 'r1'] })
     expect(r).toMatchObject({ ok: false, status: 500 })
     expect(r.ok === false && r.error.name).toBe('ConflictError')
+    expect(r.ok === false && r.error.message).toBe('version mismatch')
+  })
+
+  it('does not echo a raw store message for other failures (matches in-rest)', async () => {
+    const store = { ...relayStore(), async get(): Promise<never> { throw new TypeError('connect ECONNREFUSED postgres://admin:pw@10.0.0.5/db') } }
+    const handle = createRelayHandler({ store })
+    const r = await handle({ id: '1', method: 'get', args: ['v', 'c', 'r1'] })
+    expect(r).toMatchObject({ ok: false, status: 500, error: { name: 'TypeError', message: 'store error' } })
   })
 })
 

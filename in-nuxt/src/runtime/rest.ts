@@ -10,9 +10,10 @@
  * separate Nitro server plugin must populate this before requests reach this
  * handler. That wiring is deferred to the  follow-up PR.
  *
- * The handler is intentionally stateless at module scope — the lazy `_handler`
- * singleton is reset on each cold-start (Nitro worker restart), which matches
- * the expected lifecycle.
+ * The in-rest handler is built PER REQUEST from that request's store, token
+ * and basePath. A module-scope cache built from the first request silently
+ * routed every later tenant / rotated token to it (family#154); building is
+ * cheap — `createRestHandler` holds no state.
  */
 
 import { defineEventHandler, getRequestURL, readBody } from 'h3'
@@ -22,7 +23,6 @@ import { nitroAdapter } from '@noy-db/in-rest/nitro'
 import type { NoydbRestHandler, RestRequest } from '@noy-db/in-rest'
 import type { NoydbStore } from '@noy-db/hub/to'
 
-let _handler: NoydbRestHandler | null = null
 
 /**
  * Case-insensitive `Authorization: Bearer <token>` check against the
@@ -44,19 +44,16 @@ function getHandler(
   authToken: string | undefined,
   basePath: string,
 ): NoydbRestHandler {
-  if (!_handler) {
-    // FAIL-CLOSED: @noy-db/in-rest rejects every /rpc request with 401
-    // when `authorize` is omitted. Without an `authToken`, that's exactly
-    // what happens here — the deployer MUST configure
-    // `noydb.rest.authToken` (or wire a custom handler directly) to
-    // accept any traffic.
-    _handler = createRestHandler({
-      store,
-      basePath,
-      ...(authToken ? { authorize: bearerAuthorize(authToken) } : {}),
-    })
-  }
-  return _handler
+  // FAIL-CLOSED: @noy-db/in-rest rejects every /rpc request with 401
+  // when `authorize` is omitted. Without an `authToken`, that's exactly
+  // what happens here — the deployer MUST configure
+  // `noydb.rest.authToken` (or wire a custom handler directly) to
+  // accept any traffic.
+  return createRestHandler({
+    store,
+    basePath,
+    ...(authToken ? { authorize: bearerAuthorize(authToken) } : {}),
+  })
 }
 
 export default defineEventHandler(async (event: H3Event) => {
