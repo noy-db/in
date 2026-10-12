@@ -164,6 +164,17 @@ describe('invokeToolCall — dispatch', () => {
     ).rejects.toBeInstanceOf(ToolDeniedError)
   })
 
+  it('denies `_`-prefixed collections even when allowedCollections names them', async () => {
+    const { vault } = await setup()
+    await vault.collection<{ id: string }>('_private').put('x1', { id: 'x1' })
+    await expect(
+      invokeToolCall(vault, { name: '_private_list', args: {} }),
+    ).rejects.toBeInstanceOf(ToolDeniedError)
+    await expect(
+      invokeToolCall(vault, { name: '_private_get', args: { id: 'x1' } }, { allowedCollections: ['_private'] }),
+    ).rejects.toBeInstanceOf(ToolDeniedError)
+  })
+
   it('throws ToolNotFoundError on fabricated tool names', async () => {
     const { vault } = await setup()
     await expect(
