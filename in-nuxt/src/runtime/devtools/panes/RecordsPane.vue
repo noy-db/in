@@ -58,10 +58,15 @@ const canNext = computed(() => !!props.page && props.page.offset + props.page.li
 
 // ── PII masking ────────────────────────────────────────────────────────────
 
-/** Set of field keys that are sensitive (pii or secret) per collection.described. */
+/**
+ * Set of field keys that are sensitive (pii or secret) per collection.described.
+ * Fail-closed: absent or empty `described` means classification is UNKNOWN (a
+ * collection not declared with fieldMeta on this Vault instance reads as `[]`),
+ * so every field is masked behind the reveal control.
+ */
 const sensitiveFields = computed((): Set<string> => {
   const described = props.collection.described
-  if (!described) return new Set()
+  if (!described || described.length === 0) return new Set(fields.value)
   const s = new Set<string>()
   for (const d of described) {
     if (d.sensitivity !== undefined && d.sensitivity !== 'public') {

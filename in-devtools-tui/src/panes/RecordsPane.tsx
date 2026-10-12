@@ -18,7 +18,11 @@ export function RecordsPane({ collection, page, error, revealAll }: {
   error?: string
   revealAll?: boolean
 }) {
-  // Build the set of sensitive field keys from described[] (pii + secret); empty if no described.
+  // Fail-closed: absent or empty described[] means classification is UNKNOWN (a
+  // collection not declared with fieldMeta on this Vault instance reads as []),
+  // so every cell is masked until revealed.
+  const unclassified = !collection.described || collection.described.length === 0
+  // Build the set of sensitive field keys from described[] (pii + secret).
   const sensitiveKeys: ReadonlySet<string> = React.useMemo(() => {
     if (!collection.described) return new Set<string>()
     const keys = new Set<string>()
@@ -41,11 +45,11 @@ export function RecordsPane({ collection, page, error, revealAll }: {
 
   function renderCell(f: string, row: unknown): string {
     const raw = cell((row as Record<string, unknown>)?.[f])
-    if (!revealAll && sensitiveKeys.has(f)) return MASK
+    if (!revealAll && (unclassified || sensitiveKeys.has(f))) return MASK
     return raw
   }
 
-  const revealHint = sensitiveKeys.size > 0 ? ' · r reveal/hide' : ''
+  const revealHint = unclassified || sensitiveKeys.size > 0 ? ' · r reveal/hide' : ''
   return (
     <Box flexDirection="column">
       <Text bold>rows {from}–{to} of {page.total} <Text dimColor>(n/p page · ⇥ back{revealHint})</Text></Text>

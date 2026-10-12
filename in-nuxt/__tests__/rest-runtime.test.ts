@@ -39,9 +39,8 @@ const minimalStore = {
 }
 
 describe('runtime/rest handler', () => {
-  // Each test gets a fresh module instance so the handler's lazy `_handler`
-  // singleton (module-scope, cached across calls) doesn't leak the
-  // authToken/basePath from one test's config into the next.
+  // Each test gets a fresh module instance, so no test can pass by riding
+  // module state left over from another.
   beforeEach(() => {
     vi.resetModules()
   })
@@ -127,6 +126,29 @@ describe('runtime/rest handler', () => {
     expect(res.status).toBe(200)
     const body = await res.json()
     expect(body).toBe(true)
+  })
+
+  it('serves each request with ITS store and token, not the first request\'s (family#154)', async () => {
+    const mod = await import('../src/runtime/rest.js')
+    const handler = mod.default as (event: FakeH3Event) => Promise<Response>
+    const rpc = (store: unknown, token: string, bearer: string) => makeEvent({
+      method: 'POST',
+      path: '/api/noydb/rpc',
+      headers: new Headers({ authorization: `Bearer ${bearer}` }),
+      context: {
+        nitro: { runtimeConfig: { noydb: { rest: { authToken: token } } } },
+        noydbStore: store,
+      },
+      _body: { method: 'list', args: ['v', 'c'] },
+    })
+    const tenantA = { ...minimalStore, async list() { return ['a1'] } }
+    const tenantB = { ...minimalStore, async list() { return ['b1'] } }
+
+    expect(await (await handler(rpc(tenantA, 'tok-1', 'tok-1'))).json()).toEqual(['a1'])
+    expect(await (await handler(rpc(tenantB, 'tok-1', 'tok-1'))).json()).toEqual(['b1'])
+    // Rotated token: the old one must stop working, the new one must work.
+    expect((await handler(rpc(tenantB, 'tok-2', 'tok-1'))).status).toBe(401)
+    expect((await handler(rpc(tenantB, 'tok-2', 'tok-2'))).status).toBe(200)
   })
 
   it('falls back to event.context.runtimeConfig for alternate injection (both public + private branches)', async () => {

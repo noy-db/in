@@ -157,7 +157,10 @@ describe('RecordsPane — PII masking', () => {
     expect(wrapper.text()).toContain('IT123')
   })
 
-  it('masks nothing when described is absent (back-compat)', async () => {
+  it.each([
+    ['absent', undefined],
+    ['empty (not declared on this Vault instance)', []],
+  ] as const)('masks every field when described is %s (fail-closed)', async (_label, described) => {
     const noDescSnap: InspectorSnapshot = {
       vault: 'testvault',
       collections: [{
@@ -168,7 +171,7 @@ describe('RecordsPane — PII masking', () => {
         },
         indexes: [],
         refs: {},
-        // no described
+        ...(described !== undefined ? { described } : {}),
       }],
     }
     const noDescPage: RecordPage = {
@@ -178,9 +181,12 @@ describe('RecordsPane — PII masking', () => {
       offset: 0,
     }
     const wrapper = await mountWithRecords(noDescSnap, noDescPage)
+    expect(wrapper.text()).not.toContain('inv001')
+    expect(wrapper.text()).not.toContain('9.99')
+    expect(wrapper.text()).toContain('••••')
+    await wrapper.find('[data-reveal-all]').trigger('click')
+    await wrapper.vm.$nextTick()
     expect(wrapper.text()).toContain('inv001')
-    expect(wrapper.text()).toContain('9.99')
-    expect(wrapper.text()).not.toContain('••••')
   })
 
   it('treats a field not in described as not-sensitive', async () => {

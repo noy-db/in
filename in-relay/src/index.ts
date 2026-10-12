@@ -370,7 +370,11 @@ export function createRelayHandler(options: RelayHandlerOptions): (frame: RelayF
       // The error's own name is forwarded so a client can re-hydrate a
       // ConflictError by name — the seam contract in-rest and to-rest settled
       // in #1218. Never `instanceof` across this boundary.
-      return { ok: false, id: frame.id, status, error: { name: e.name, message: e.message } }
+      // The raw message is NOT echoed (as in-rest): a store error may embed
+      // connection strings or paths. ConflictError and the relay's own 501 keep
+      // theirs — both are safe and a client reads them.
+      const keepMessage = status === 501 || e.name === 'ConflictError'
+      return { ok: false, id: frame.id, status, error: { name: e.name, message: keepMessage ? e.message : 'store error' } }
     }
   }
 }

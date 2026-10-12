@@ -44,6 +44,8 @@ describe('records pane (B2.2)', () => {
     await new Promise((r) => setTimeout(r, 60))
     stdin.write('\t')   // Tab → Records
     await new Promise((r) => setTimeout(r, 80))
+    stdin.write('r')    // no fieldMeta → masked (fail-closed); reveal to read
+    await new Promise((r) => setTimeout(r, 80))
     const frame = lastFrame() ?? ''
     expect(frame).toMatch(/rows 1.\d+ of 3/)
     expect(frame).toContain('n0')
