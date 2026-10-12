@@ -14,7 +14,7 @@ pnpm add -D @noy-db/in-devtools-tui
 
 ## Usage
 
-Point the `noydb-inspect` bin at a config file that default-exports your `NoydbOptions`. It unlocks the vault (prompting for the secret, or reading `--secret=…` / `NOYDB_SECRET`), then opens a read-only terminal dashboard of collections, records, and live writes.
+Point the `noydb-inspect` bin at a config file that default-exports your `NoydbOptions`. It unlocks the vault (prompting for the secret, or reading `NOYDB_SECRET`; a `--secret` flag is refused because argv is visible in `ps` and shell history), then opens a read-only terminal dashboard of collections, records, and live writes.
 
 ```bash
 npx noydb-inspect ./noydb.config.mjs --vault=acme

@@ -6,8 +6,9 @@
  *
  *   1. The store options' explicit `noydb:` field (highest precedence — useful
  *      for tests and multi-database apps).
- *   2. A globally bound instance set via `setActiveNoydb()` — this is what the
- *      Nuxt module's runtime plugin and playground apps use.
+ *   2. A globally bound instance set via `setActiveNoydb()` — the app calls it
+ *      from its own setup (the Nuxt module's runtime plugin deliberately does
+ *      not: the secret callback cannot travel through runtime config).
  *   3. Throws a clear error if neither is set.
  *
  * Keeping the binding pluggable means tests can pass an instance directly
@@ -18,7 +19,7 @@ import type { Noydb } from '@noy-db/hub'
 
 let activeInstance: Noydb | null = null
 
-/** Bind a Noydb instance globally. Called by the Nuxt module / app plugin. */
+/** Bind a Noydb instance globally. Called by the app's own setup / plugin. */
 export function setActiveNoydb(instance: Noydb | null): void {
   activeInstance = instance
 }

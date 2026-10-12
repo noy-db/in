@@ -5,6 +5,13 @@ import type { NoydbRestHandler, RestRequest } from '../index.js'
 export function expressAdapter(handler: NoydbRestHandler): ExpressRouter {
   const router = express.Router()
 
+  // RestRequest.json() reads req.body, which Express leaves undefined unless a
+  // body parser ran. Mount one here so POST /rpc works with no app setup
+  // (family#155). A body the app already parsed — e.g. its own
+  // `express.json({ limit })` mounted first — is left alone, so its limit wins
+  // over this one's 100kb default.
+  router.use(express.json())
+
   // Express 5 dropped support for bare `*` as a wildcard path — use router.use()
   // which runs for all methods and paths without needing path-to-regexp.
   router.use(async (req, res, next) => {

@@ -11,7 +11,7 @@
  * import { awsDynamoStore } from '@noy-db/to-aws-dynamo'
  *
  * const dynamo = awsDynamoStore({ table: 'live' })
- * const { store, meter } = toMeter(dynamo, {
+ * const store = toMeter(dynamo, {   // the metered store; its meter is `store.meter`
  *   liveness:    { interval: 60_000 },    // optional synthetic pings
  *   degradedMs:  200,                     // p99 threshold for `degraded` event
  *   onDegraded:  (e) => console.warn(e),
@@ -20,7 +20,7 @@
  * const db = await createNoydb({ store })
  *
  * // at any time
- * console.log(meter.snapshot())
+ * console.log(store.meter.snapshot())
  * // {
  * //   byMethod: {
  * //     get:  { count: 142, p50: 3, p99: 28, errors: 0 },
@@ -260,7 +260,7 @@ export function toMeter(inner?: NoydbStore, options: MeterOptions = {}): Metered
 
   // Optional synthetic liveness timer
   const livenessTimer = options.liveness
-    ? startLiveness(target, options.liveness, transition)
+    ? startLiveness(target, options.liveness, transition, () => currentStatus)
     : null
 
   const handle: MeterHandle = {
@@ -383,6 +383,7 @@ function startLiveness(
   inner: NoydbStore,
   opts: LivenessOptions,
   transition: (status: MeterStatus, method?: MethodName, p99?: number, reason?: string) => void,
+  status: () => MeterStatus,
 ): ReturnType<typeof setInterval> {
   const vault = opts.vault ?? 'probe-vault'
   const collection = opts.collection ?? 'probe-liveness'
@@ -407,8 +408,10 @@ function startLiveness(
         })
         await inner.delete(vault, collection, pingId)
       }
-      // On a successful check, transition back to ok if we were unreachable
-      transition('ok', undefined, undefined, 'liveness check succeeded')
+      // A successful check answers reachability only: restore from
+      // 'unreachable', never from a latency-driven 'degraded' (that flapped
+      // onDegraded/onRestored every interval — family#155).
+      if (status() === 'unreachable') transition('ok', undefined, undefined, 'liveness check succeeded')
     } catch (err) {
       transition('unreachable', undefined, undefined, `liveness error: ${(err as Error).message}`)
     }

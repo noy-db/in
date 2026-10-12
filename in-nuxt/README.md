@@ -133,9 +133,9 @@ A planned CI bundle assertion will verify this property automatically by greppin
 
 | Option       | Type                                                | Default       | Description |
 |--------------|-----------------------------------------------------|---------------|-------------|
-| `adapter`    | `'browser' \| 'memory' \| 'file' \| 'dynamo' \| 's3'` | —             | Hint for which built-in adapter to use. Just metadata — your bootstrap code constructs the actual adapter. |
+| `store`      | `'to-browser-idb' \| 'to-browser-local' \| 'to-memory' \| 'to-file' \| 'to-aws-dynamo' \| 'to-aws-s3'` | — | Hint for which built-in store to use. Just metadata — your bootstrap code constructs the actual store. |
 | `pinia`      | `boolean`                                           | `true`        | Auto-import the `@noy-db/in-pinia` helpers. Set to `false` if you don't use Pinia. |
-| `sync`       | `{ adapter, table, region, bucket, mode }`          | —             | Optional sync configuration metadata, exposed via `runtimeConfig.public.noydb.sync`. |
+| `sync`       | `{ store, table, region, bucket, mode }`            | —             | Optional sync configuration metadata, exposed via `runtimeConfig.public.noydb.sync`. |
 | `auth`       | `{ mode, sessionTimeout }`                          | —             | Optional auth metadata. The actual secret callback lives in your bootstrap code. |
 | `devtools`   | `boolean`                                           | `true`        | Register the noy-db tab in Nuxt DevTools during `nuxi dev` (see below). Set to `false` to opt out. Never active in production builds. |
 | `rest`       | `{ enabled, basePath, authToken }`                  | —             | Opt-in Nitro handler at `basePath/**` (default `/api/noydb`) backed by `@noy-db/in-rest`: a ciphertext RPC proxy that never sees plaintext. Fail-closed — without `authToken` every request gets 401; the token stays in private runtime config. It reads the store from `event.context.noydbStore`, which your own Nitro plugin must set. |

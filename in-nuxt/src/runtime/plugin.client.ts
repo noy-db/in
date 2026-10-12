@@ -19,7 +19,6 @@
  * Future work:
  *   - Read a user-supplied `bootstrap` callback from a Nuxt provide()
  *     and call it here to construct Noydb automatically when possible
- *   - Wire the devtools tab via @nuxt/devtools-kit
  *   - Surface ledger / sync status on the Nuxt app context
  */
 

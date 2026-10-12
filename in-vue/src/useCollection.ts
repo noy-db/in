@@ -1,4 +1,4 @@
-import { ref, onUnmounted, type Ref } from 'vue'
+import { ref, getCurrentScope, onScopeDispose, type Ref } from 'vue'
 import type { Noydb, ChangeEvent } from '@noy-db/hub'
 
 /**
@@ -17,6 +17,8 @@ export interface UseCollectionReturn<T> {
   error: Ref<Error | null>
   /** Manually refresh data from the adapter. */
   refresh: () => Promise<void>
+  /** Remove the change listener. Automatic when the calling effect scope disposes. */
+  stop: () => void
 }
 
 /**
@@ -58,12 +60,15 @@ export function useCollection<T>(
   }
   db.on('change', handler)
 
-  onUnmounted(() => {
-    db.off('change', handler)
-  })
+  // onScopeDispose, not onUnmounted: a Pinia setup store or a plugin is an
+  // effect scope but not a component, and onUnmounted is a no-op there — the
+  // listener would re-list and decrypt the collection forever. Outside any
+  // scope the caller owns stop().
+  const stop = (): void => { db.off('change', handler) }
+  if (getCurrentScope()) onScopeDispose(stop)
 
   // Initial load
   void refresh()
 
-  return { data, loading, error, refresh }
+  return { data, loading, error, refresh, stop }
 }

@@ -19,7 +19,7 @@
  * @packageDocumentation
  */
 
-import type { Query } from '@noy-db/hub'
+import type { Query, QueryPlan } from '@noy-db/hub'
 
 export interface TableSortDescriptor {
   readonly id: string
@@ -83,25 +83,23 @@ export function buildQueryFromTableState<T>(
  * explicitly set — undefined fields stay undefined.
  */
 export function tableStateFromQuery<T>(query: Query<T>): TableState {
-  const q = query as unknown as {
-    __clauses?: Array<{ field: string; op: string; value: unknown }>
-    __sorts?: Array<{ field: string; direction: 'asc' | 'desc' }>
-    __limit?: number
-    __offset?: number
-  }
+  // Read hub's public, JSON-friendly plan. The previous version read
+  // `__clauses`/`__sorts`/`__limit`/`__offset`, which hub never had, so it
+  // always returned {} (family#155). Only top-level `field` clauses with
+  // `==`/`in` map back to column filters — the two shapes the builder writes.
+  const plan = query.toPlan() as Partial<QueryPlan>
 
-  const columnFilters: TableFilterDescriptor[] | undefined = q.__clauses
-    ?.filter(c => c.op === '==' || c.op === 'in')
-    .map(c => ({ id: c.field, value: c.value }))
-  const sorting: TableSortDescriptor[] | undefined = q.__sorts?.map(s => ({
+  const columnFilters: TableFilterDescriptor[] | undefined = plan.clauses
+    ?.flatMap(c => (c.type === 'field' && (c.op === '==' || c.op === 'in') ? [{ id: c.field, value: c.value }] : []))
+  const sorting: TableSortDescriptor[] | undefined = plan.orderBy?.map(s => ({
     id: s.field,
     desc: s.direction === 'desc',
   }))
   const pagination: TablePaginationState | undefined =
-    q.__limit !== undefined
+    plan.limit !== undefined
       ? {
-          pageSize: q.__limit,
-          pageIndex: q.__offset && q.__limit ? Math.floor(q.__offset / q.__limit) : 0,
+          pageSize: plan.limit,
+          pageIndex: plan.offset && plan.limit ? Math.floor(plan.offset / plan.limit) : 0,
         }
       : undefined
 

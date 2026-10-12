@@ -16,14 +16,15 @@ function fail(msg: string): never {
 async function main(): Promise<void> {
   const argv = process.argv.slice(2)
   const configPath = argv.find((a) => !a.startsWith('--'))
-  if (!configPath) fail('usage: noydb-inspect <config.js|mjs> --vault=<name> [--secret=…]')
+  if (!configPath) fail('usage: noydb-inspect <config.js|mjs> --vault=<name>  (secret: NOYDB_SECRET or prompt)')
   const vaultFlag = argv.find((a) => a.startsWith('--vault='))
   if (!vaultFlag) fail('missing --vault=<name>')
   const vaultName = vaultFlag.slice('--vault='.length)
 
-  let secret = resolveSecret(argv, process.env)
+  let secret: string | undefined
+  try { secret = resolveSecret(argv, process.env) } catch (e) { fail((e as Error).message) }
   if (secret === undefined) {
-    if (!process.stdin.isTTY) fail('no secret — pass --secret=… or set NOYDB_SECRET')
+    if (!process.stdin.isTTY) fail('no secret — set NOYDB_SECRET')
     secret = await promptMasked('Secret: ')
   }
 

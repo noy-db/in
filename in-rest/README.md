@@ -49,13 +49,17 @@ const handler = createRestHandler({
 app.route('/', honoAdapter(handler)) // or expressAdapter / fastifyPlugin / nitroAdapter
 ```
 
+`expressAdapter` mounts `express.json()` (100kb default limit) so POST bodies parse with no
+setup; to raise the limit, mount your own `express.json({ limit })` before it — an already-parsed
+body is left alone.
+
 `RestHandlerOptions`: `{ store, authorize?, allow?, basePath? }`. Success → `200` with the
 raw store result; a CAS conflict → `409 { error: { name: 'ConflictError', message } }`;
 unauthorized → `401`; unknown/malformed → `400`; disallowed method → `403`.
 
 ## Status
 
-**Pre-release** (`0.1.0-pre.1`). API may change before `1.0`.
+**Pre-1.0** — the API may change before `1.0`. The current version is on npm.
 
 ## Documentation
 

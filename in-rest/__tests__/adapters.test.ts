@@ -135,6 +135,39 @@ describe('expressAdapter', () => {
   })
 })
 
+describe('expressAdapter — POST body (family#155)', () => {
+  async function post(mount: (app: import('express').Express, router: import('express').Router) => void, payload: unknown) {
+    const express = (await import('express')).default
+    const { expressAdapter } = await import('../src/adapters/express.js')
+    let seen: unknown = 'not-called'
+    const handler: NoydbRestHandler = { async handle(r) { seen = await r.json(); return okResponse } }
+    const app = express()
+    mount(app, expressAdapter(handler))
+    const server = await new Promise<import('node:http').Server>((ok) => { const s = app.listen(0, () => ok(s)) })
+    try {
+      const { port } = server.address() as import('node:net').AddressInfo
+      const res = await fetch(`http://127.0.0.1:${port}/rpc`, {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload),
+      })
+      return { status: res.status, seen }
+    } finally {
+      server.close()
+    }
+  }
+
+  it('parses a JSON body with no parser mounted by the app', async () => {
+    const r = await post((app, router) => app.use(router), { method: 'ping', args: [] })
+    expect(r).toEqual({ status: 200, seen: { method: 'ping', args: [] } })
+  })
+
+  it('leaves a body the app already parsed alone (the app\'s own limit wins)', async () => {
+    const express = (await import('express')).default
+    const big = { method: 'put', args: ['x'.repeat(200_000)] }   // > express.json()'s 100kb default
+    const r = await post((app, router) => { app.use(express.json({ limit: '1mb' })); app.use(router) }, big)
+    expect(r).toEqual({ status: 200, seen: big })
+  })
+})
+
 // ── Fastify ───────────────────────────────────────────────────────────
 
 describe('fastifyPlugin', () => {
