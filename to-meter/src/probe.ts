@@ -11,11 +11,11 @@
  * | D4 — Sync economics         | single + batch `put` cost, bytes/push |
  * | D5 — Network resilience     | `ping()` support + latency |
  *
- * Writes happen to an isolated `_probe / _probe` collection that the
- * probe cleans up on completion. The probe does not mutate real
- * application data — but if a probe is interrupted, stray envelopes
- * may remain under that collection. Adopters can safely delete
- * anything under the `_probe` vault.
+ * Writes happen to an isolated `probe-vault / probe-benchmark` collection
+ * (override with `options.vault` / `options.collection`) that the probe
+ * cleans up on completion. The probe does not mutate real application
+ * data — but if a probe is interrupted, stray envelopes may remain under
+ * that collection. Adopters can safely delete anything under it.
  *
  * The probe never decrypts anything. It operates at the `NoydbStore`
  * layer with handcrafted {@link EncryptedEnvelope}-shaped payloads — a

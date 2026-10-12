@@ -22,10 +22,15 @@ export async function loadOptionsFromFile(filePath: string): Promise<unknown> {
   return typeof value === 'function' ? await (value as () => Promise<unknown>)() : value
 }
 
-/** Resolve the secret from `--secret=…` or `NOYDB_SECRET`; undefined → caller prompts. */
+/**
+ * Resolve the secret from `NOYDB_SECRET`; undefined → caller prompts.
+ * `--secret=…` is REFUSED, not ignored: a secret on argv is readable in `ps`
+ * and lands in shell history (family#155).
+ */
 export function resolveSecret(argv: readonly string[], env: NodeJS.ProcessEnv): string | undefined {
-  const flag = argv.find((a) => a.startsWith('--secret='))
-  if (flag) return flag.slice('--secret='.length)
+  if (argv.some((a) => a === '--secret' || a.startsWith('--secret='))) {
+    throw new Error('--secret is not accepted (it is visible in ps and shell history) — set NOYDB_SECRET or answer the prompt')
+  }
   if (env.NOYDB_SECRET) return env.NOYDB_SECRET
   return undefined
 }

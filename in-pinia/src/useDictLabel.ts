@@ -39,7 +39,7 @@
  * @module
  */
 
-import { ref, shallowRef, toRef, watch, type Ref } from 'vue'
+import { ref, shallowRef, toRef, watch, getCurrentScope, onScopeDispose, type Ref } from 'vue'
 import type { Vault } from '@noy-db/hub'
 import { resolveNoydb } from './context.js'
 import { useNoydbI18n } from './useNoydbI18n.js'
@@ -86,12 +86,15 @@ export interface UseDictLabelOptions {
 }
 
 /**
- * Build a reactive label lookup. Returns a factory `(key) => Ref<string>`.
+ * Build a reactive label lookup. Returns a factory `(key) => Ref<string>`
+ * carrying `stop()`, which removes its change listener and locale watch.
+ * Inside an effect scope (component, Pinia setup store, `effectScope`) that
+ * happens automatically when the scope disposes; outside one, call `stop()`.
  */
 export function useDictLabel(
   dictionaryName: string,
   options: UseDictLabelOptions = {},
-): (key: string) => Ref<string> {
+): ((key: string) => Ref<string>) & { stop: () => void } {
   const vault = resolveVault(options.vault)
   const handle = vault.dictionary(dictionaryName)
 
@@ -139,7 +142,7 @@ export function useDictLabel(
   db.on('change', onChange)
 
   // Refresh every cached label when the locale flips.
-  watch(localeRef, () => {
+  const stopWatch = watch(localeRef, () => {
     for (const [key, r] of cache) {
       void refresh(key, r)
     }
@@ -158,7 +161,13 @@ export function useDictLabel(
     }
   }
 
-  return (key: string): Ref<string> => {
+  const stop = (): void => {
+    db.off('change', onChange)
+    stopWatch()
+  }
+  if (getCurrentScope()) onScopeDispose(stop)
+
+  const lookup = (key: string): Ref<string> => {
     let r = cache.get(key)
     if (r) return r
     r = shallowRef(missing(key))
@@ -166,6 +175,7 @@ export function useDictLabel(
     void refresh(key, r)
     return r
   }
+  return Object.assign(lookup, { stop })
 }
 
 function resolveVault(source: Vault | string | undefined): Vault {

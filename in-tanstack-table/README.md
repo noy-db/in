@@ -18,7 +18,7 @@ TanStack Table bridge for noy-db — map Collection query state (sort, filter, p
 
 ## Status
 
-**Pre-release** (`0.1.0-pre.1`). API may change before `1.0`.
+**Pre-1.0** — the API may change before `1.0`. The current version is on npm.
 
 ## Documentation
 

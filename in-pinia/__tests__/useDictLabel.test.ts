@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { ref } from 'vue'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { ref, effectScope } from 'vue'
 import { setActivePinia, createPinia } from 'pinia'
 import type { NoydbStore, EncryptedEnvelope, VaultSnapshot } from '@noy-db/hub'
 import { ConflictError, createNoydb } from '@noy-db/hub'
@@ -165,5 +165,18 @@ describe('useDictLabel', () => {
     i18n.setLocale('th')
     for (let n = 0; n < 50 && paid.value !== 'ชำระแล้ว'; n++) await tick(10)
     expect(paid.value).toBe('ชำระแล้ว') // recomputed on global flip
+  })
+  it('removes its change listener when the effect scope disposes, or on stop()', async () => {
+    const { db } = await setup()
+    const off = vi.spyOn(db, 'off')
+    const scope = effectScope()
+    scope.run(() => useDictLabel('invoiceStatus', { locale: 'en' }))
+    scope.stop()
+    expect(off).toHaveBeenCalledWith('change', expect.any(Function))
+
+    off.mockClear()
+    const label = useDictLabel('invoiceStatus', { locale: 'en' })
+    label.stop()
+    expect(off).toHaveBeenCalledWith('change', expect.any(Function))
   })
 })

@@ -1,4 +1,4 @@
-import { ref, onUnmounted, type Ref } from 'vue'
+import { ref, getCurrentScope, onScopeDispose, type Ref } from 'vue'
 import type { Noydb, SyncStatus, PushResult, PullResult } from '@noy-db/hub'
 
 /**
@@ -19,6 +19,8 @@ export interface UseSyncReturn {
   pull: () => Promise<PullResult>
   /** Bidirectional sync (pull then push). */
   sync: () => Promise<void>
+  /** Remove the sync listeners. Automatic when the calling effect scope disposes. */
+  stop: () => void
 }
 
 /**
@@ -43,10 +45,13 @@ export function useSync(db: Noydb, compartmentName: string): UseSyncReturn {
   db.on('sync:push', onPush)
   db.on('sync:pull', onPull)
 
-  onUnmounted(() => {
+  // onScopeDispose, not onUnmounted (a no-op outside a component — Pinia
+  // setup stores and plugins leaked these). Outside any scope, call stop().
+  const stop = (): void => {
     db.off('sync:push', onPush)
     db.off('sync:pull', onPull)
-  })
+  }
+  if (getCurrentScope()) onScopeDispose(stop)
 
   async function push(): Promise<PushResult> {
     syncing.value = true
@@ -83,5 +88,5 @@ export function useSync(db: Noydb, compartmentName: string): UseSyncReturn {
   // Initial status
   refreshStatus()
 
-  return { status, syncing, push, pull, sync }
+  return { status, syncing, push, pull, sync, stop }
 }

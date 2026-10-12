@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import type { NoydbStore, EncryptedEnvelope, VaultSnapshot } from '@noy-db/hub'
 import { ConflictError, createNoydb } from '@noy-db/hub'
 import type { Collection } from '@noy-db/hub'
-import { buildQueryFromTableState, resetTableState } from '../src/index.js'
+import { buildQueryFromTableState, resetTableState, tableStateFromQuery } from '../src/index.js'
 
 function toMemory(): NoydbStore {
   const store = new Map<string, Map<string, Map<string, EncryptedEnvelope>>>()
@@ -107,6 +107,24 @@ describe('buildQueryFromTableState', () => {
       columnFilters: [{ id: 'id', value: ['i1', 'i3'] }],
     })
     expect((await q.toArray()).map(r => r.id).sort()).toEqual(['i1', 'i3'])
+  })
+})
+
+describe('tableStateFromQuery', () => {
+  it('round-trips filters, sorting and pagination through the query plan', async () => {
+    const coll = await seed()
+    const state = {
+      columnFilters: [{ id: 'status', value: 'paid' }, { id: 'id', value: ['i2', 'i3'] }],
+      sorting: [{ id: 'amt', desc: true }],
+      pagination: { pageIndex: 2, pageSize: 5 },
+    }
+    expect(tableStateFromQuery(buildQueryFromTableState(coll.query(), state))).toEqual(state)
+  })
+
+  it('returns an empty state for a bare query, and skips non-equality clauses', async () => {
+    const coll = await seed()
+    expect(tableStateFromQuery(coll.query())).toEqual({})
+    expect(tableStateFromQuery(coll.query().where('amt', '>', 10))).toEqual({})
   })
 })
 

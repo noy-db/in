@@ -236,9 +236,10 @@ export default defineNuxtModule<ModuleOptions>({
     // ─── 6. DevTools tab (dev mode only) ────────────────────────
     //
     // Registers a virtual Nuxt page at /_noydb-devtools and exposes it
-    // as a tab in the Nuxt DevTools overlay. The page runs inside the
-    // user's full Vue app context — no iframe bridge, direct access to
-    // getActiveNoydb() and the inspector facade.
+    // as a tab in the Nuxt DevTools overlay, which embeds it as an iframe.
+    // The page itself is a route of the user's app, so it runs in the full
+    // Vue app context — direct access to getActiveNoydb() and the inspector
+    // facade, no message bridge.
     //
     // Guarded on nuxt.options.dev: never ships to production builds.
     // Users can opt out with `noydb: { devtools: false }`.

@@ -157,4 +157,33 @@ describe('toMeter — degraded/restored transitions', () => {
 
     store.meter.close()
   })
+
+  it('a successful liveness check does not clear a latency-driven degraded (no flapping)', async () => {
+    let up = true
+    const inner: NoydbStore = {
+      ...memoryStore(),
+      async put() { await new Promise((r) => setTimeout(r, 30)) },
+      async ping() { return up },
+    }
+    const events: string[] = []
+    const store = toMeter(inner, {
+      degradedMs: 10,
+      liveness: { interval: 20 },
+      onDegraded: (e) => events.push(e.status),
+      onRestored: (e) => events.push(e.status),
+    })
+    for (let i = 0; i < 10; i++) await store.put('v', 'c', `x-${i}`, env())
+    await new Promise((r) => setTimeout(r, 120))   // several liveness ticks
+    expect(store.meter.snapshot().status).toBe('degraded')
+    expect(events).toEqual(['degraded'])
+
+    // Liveness still restores from UNREACHABLE.
+    up = false
+    await new Promise((r) => setTimeout(r, 60))
+    expect(store.meter.snapshot().status).toBe('unreachable')
+    up = true
+    await new Promise((r) => setTimeout(r, 60))
+    expect(store.meter.snapshot().status).toBe('ok')
+    store.meter.close()
+  })
 })
