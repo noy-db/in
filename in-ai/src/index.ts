@@ -252,6 +252,11 @@ export async function invokeToolCall(
   if (!allowedOps.includes(op)) {
     throw new ToolDeniedError(call.name, `operation "${op}" is not in the allowed operations list`)
   }
+  // Same exclusion buildToolset applies: `_` collections are never advertised,
+  // so a call naming one is fabricated. hub refuses only a named reserved set.
+  if (collection.startsWith('_')) {
+    throw new ToolDeniedError(call.name, `collection "${collection}" is reserved (\`_\` prefix)`)
+  }
   if (options.allowedCollections && !options.allowedCollections.includes(collection)) {
     throw new ToolDeniedError(call.name, `collection "${collection}" is not in the allowed list`)
   }
