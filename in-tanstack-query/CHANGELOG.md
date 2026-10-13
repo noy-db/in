@@ -1,5 +1,10 @@
 # @noy-db/in-tanstack-query
 
+## 0.10.0-pre.2
+
+- README: the status line no longer quotes a version; it says the API may change before `1.0` and points at npm (family#155). No code change.
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

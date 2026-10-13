@@ -1,5 +1,11 @@
 # @noy-db/to-meter
 
+## 0.10.0-pre.2
+
+- **Fix (no flapping):** a successful liveness ping moves the status to `ok` only out of `unreachable`. It no longer clears a `degraded` caused by latency (family#155).
+- Docs: the `@example` uses `store.meter.snapshot()`, the probe doc names the real defaults, and the README status line is updated (family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 - Moved from `noy-db/core` to `noy-db/in`, beside its two consumers (`in-devtools`, `in-devtools-tui`). No source change. It is a store WRAPPER (it value-imports hub's root), which is why it did not go to `noy-db/to`, whose seam allows `@noy-db/hub/to` only (family#117).

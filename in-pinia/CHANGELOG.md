@@ -1,5 +1,11 @@
 # Changelog — in-pinia
 
+## 0.10.0-pre.2
+
+- **Fix:** `useDictLabel` returns a lookup that has a `stop()` and is torn down by `onScopeDispose` when it was created in an effect scope. Before, the `change` listener and the watcher leaked outside components (Pinia setup stores, plugins) (family#155).
+- `setActiveNoydb` doc corrected (family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

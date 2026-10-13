@@ -1,5 +1,10 @@
 # @noy-db/in-relay
 
+## 0.10.0-pre.2
+
+- **Fix:** store errors reach the client as `'store error'`. The original message is kept only for 501 and `ConflictError`, so an internal error message no longer leaks (family#154).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.
