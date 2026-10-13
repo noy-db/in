@@ -1,5 +1,12 @@
 # Changelog — in-nuxt
 
+## 0.10.0-pre.2
+
+- **Fix (fail-closed masking):** the DevTools Records pane masks every field when the collection has no field classification. Reveal-all still works (family#154).
+- **Fix:** the opt-in REST handler is built per request rather than cached for the process, so a rotated `authToken` or a different per-tenant store takes effect (family#154).
+- Docs: the README and module JSDoc describe the shipped DevTools tab (it used to be called "planned"). The README also gains `rest`, `store` and `sync.store` rows, the stale Nitro-proxy line is replaced, and the plugin's future list is fixed (family#112, family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

@@ -1,5 +1,10 @@
 # Changelog — in-vue
 
+## 0.10.0-pre.2
+
+- **Fix:** `useCollection` and `useSync` expose `stop()` and register `onScopeDispose` when called inside an effect scope. Before, they relied on `onUnmounted`, which does nothing outside a component, so the listeners leaked (family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

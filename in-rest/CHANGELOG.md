@@ -1,5 +1,11 @@
 # @noy-db/in-rest
 
+## 0.10.0-pre.2
+
+- **Fix:** the Express adapter mounts `express.json()` on its own router, so `POST /rpc` works without the app mounting a body parser. A parser the app already mounted, and its limit, still win (family#155).
+- README documents this and its status line is updated (family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

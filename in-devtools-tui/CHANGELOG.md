@@ -1,5 +1,12 @@
 # @noy-db/in-devtools-tui
 
+## 0.10.0-pre.2
+
+- **Fix (fail-closed masking):** when the hub returns no field classification for a collection (absent or empty `describe()` fields, as on a freshly opened instance), the Records pane masks every cell until you press `r`. Before, it showed everything (family#154).
+- **Fix:** `--secret` / `--secret=` on argv is refused with an error naming `NOYDB_SECRET`, because argv is visible in `ps` and in shell history (family#155).
+- `load-options.ts` keeps its own small copy of the loader and says why: importing `create-noy-db` would add a package seam (family#112).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.

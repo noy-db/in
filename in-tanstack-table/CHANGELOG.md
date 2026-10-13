@@ -1,5 +1,11 @@
 # @noy-db/in-tanstack-table
 
+## 0.10.0-pre.2
+
+- **Fix:** `tableStateFromQuery` reads the public `Query.toPlan()`. It maps only field clauses with `==` / `in` and round-trips with `applyTableStateToQuery` (family#155).
+- README status line updated (family#155).
+- Dev pin on `@noy-db/hub` moves to `0.10.0-pre.2`.
+
 ## 0.10.0-pre.1
 
 Lockstep bump to 0.10.0-pre.1; no package-level change in this release. See `@noy-db/hub` 0.10.0-pre.1 for the line's notes.
